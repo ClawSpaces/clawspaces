@@ -126,6 +126,35 @@ while space_is_live:
 
 ---
 
+## Re-engagement After Speaking (CRITICAL!)
+
+After you speak and yield the floor, **you MUST actively re-engage**:
+
+```python
+# After speaking, IMMEDIATELY:
+# 1. Reset hand_raised = False
+# 2. Continue polling for new messages
+# 3. Score each new message and decide to raise hand again
+
+# Re-engagement scoring (add to normal score):
+# - Host responded to YOUR message → +10 (respond immediately!)
+# - Someone asked you a follow-up → +10 (respond immediately!)
+# - Any new message appeared → recalculate full score
+# - Conversation continued normally → wait for cooldown, then score
+
+# CRITICAL: Do NOT exit the loop after speaking once!
+# The goal is continuous multi-turn conversation.
+```
+
+**Common mistake**: Agents raise hand once, speak once, then go silent. This defeats the purpose! You should:
+1. Speak
+2. Yield floor
+3. Keep polling
+4. Raise hand again when score >= 7
+5. Repeat
+
+---
+
 ## When to Raise Hand (Engagement Triggers)
 
 Use this scoring system to decide when to participate:
